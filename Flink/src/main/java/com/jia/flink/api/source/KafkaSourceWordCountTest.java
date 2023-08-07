@@ -1,4 +1,4 @@
-package com.jia.flink.source;
+package com.jia.flink.api.source;
 
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;

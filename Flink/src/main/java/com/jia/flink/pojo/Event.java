@@ -5,22 +5,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ClassName: WordCount
+ * ClassName: Event
  * Package: com.jia.flink.pojo
  * Description:
  *
  * @Author jjy
- * @Create 2023/8/4 10:20
+ * @Create 2023/8/7 14:46
  * @Version 1.0
  */
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class WordCount {
+@AllArgsConstructor
+public class Event {
 
-    private String word;
+	private String user;
 
-    private Long count;
+	private String url;
 
+	private Long ts;
 
 }

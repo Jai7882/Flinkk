@@ -1,4 +1,4 @@
-package com.jia.flink;
+package com.jia.flink.wordcount;
 
 import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -16,7 +16,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
  * @Create 2023/8/3 16:48
  * @Version 1.0
  */
-public class StreamWordCount {
+    public class StreamWordCount {
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

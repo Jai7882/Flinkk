@@ -1,4 +1,4 @@
-package com.jia.flink.source;
+package com.jia.flink.api.source;
 
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -22,9 +22,9 @@ public class SimpleSource {
 
         List<String> stringList = Arrays.asList("a", "b", "c", "a", "e");
         DataStreamSource<String> ds1 = env.fromCollection(stringList);
-
+//        ds1.print();
         DataStreamSource<Integer> ds2 = env.fromElements(5, 1, 3, 3, 5);
-        ds2.print();
+//        ds2.print();
 
         DataStreamSource<String> ds3 = env.socketTextStream("hadoop102", 8888);
         ds3.print();
