@@ -32,10 +32,15 @@ public class ClickSource implements SourceFunction<Event> {
 		//每秒生成一条数据
 		while (isRunning){
 			// 生成的数据
-			String[] users = {"zhang3","li4","wang5","zhao6","tian7"};
-			String[] urls = {"/home","/pay","/index","/detail","/cart"};
-			Event event = new Event(users[RandomUtils.nextInt(0, 4)],urls[RandomUtils.nextInt(0,4)],System.currentTimeMillis());
+				// 生成的数据
+				String [] users = {"Zhang3", "Li4" , "Tom" , "Jerry" , "Alice" , "Peiqi"} ;
+				String [] urls = {"/home" , "/pay" , "/detail" , "/cart" , "/order" , "/login"} ;
 
+				Event event = new Event(
+						users[RandomUtils.nextInt(0, users.length)],
+						urls[RandomUtils.nextInt(0, urls.length)],
+						System.currentTimeMillis()
+				);
 			//发射数据
 			context.collect(event);
 			TimeUnit.SECONDS.sleep(1);
