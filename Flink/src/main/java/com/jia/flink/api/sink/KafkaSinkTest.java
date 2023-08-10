@@ -31,7 +31,7 @@ public class KafkaSinkTest {
 		KafkaSink<String> kafkaSink = KafkaSink.<String>builder()
 				.setBootstrapServers("hadoop102:9092,hadoop103:9092,hadoop104:9092")
 				.setRecordSerializer(KafkaRecordSerializationSchema.<String>builder()
-						.setTopic("topic_a")
+						.setTopic("topic_b")
 						.setValueSerializationSchema(new SimpleStringSchema())
 						.build())
 				.setDeliveryGuarantee(DeliveryGuarantee.AT_LEAST_ONCE)

@@ -10,6 +10,7 @@ import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.util.Collector;
 import org.apache.kafka.clients.consumer.OffsetResetStrategy;
 
 /**
@@ -44,13 +45,13 @@ public class KafkaSourceWordCountTest {
                 .setBootstrapServers("hadoop102:9092,hadoop103:9092,hadoop104:9092")
                 .setGroupId("flink")
                 .setValueOnlyDeserializer(new SimpleStringSchema())
-                .setTopics("topic_test")
+                .setTopics("topic_a")
                 .setStartingOffsets(OffsetsInitializer.committedOffsets(OffsetResetStrategy.EARLIEST))
                 .build();
 
         DataStreamSource<String> ds = env.fromSource(ks, WatermarkStrategy.noWatermarks(),"kafkaSource");
-        SingleOutputStreamOperator<Tuple2<String,Long>> flatMap = ds.flatMap((line, collector) -> {
-            String[] words = line.split(" ");
+        SingleOutputStreamOperator<Tuple2<String,Long>> flatMap = ds.flatMap((String line, Collector<Tuple2<String,Long>> collector) -> {
+            String[] words = line.split(",");
             for (String word : words) {
                 collector.collect(Tuple2.of(word, 1L));
             }

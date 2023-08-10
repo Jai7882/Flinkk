@@ -30,7 +30,7 @@ public class KafkaSourceTest {
 				.setBootstrapServers("hadoop102:9092,hadoop103:9092,hadoop104:9092")
 				.setGroupId("flink")
 				.setValueOnlyDeserializer(new SimpleStringSchema())
-				.setTopics("topic_a")
+				.setTopics("topic_b")
 				.setStartingOffsets(OffsetsInitializer.committedOffsets(OffsetResetStrategy.EARLIEST))
 				.build();
 		DataStreamSource<String> ds = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "kafkaSource");
