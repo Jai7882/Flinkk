@@ -36,7 +36,6 @@ public class KafkaSourceTest {
 		DataStreamSource<String> ds = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "kafkaSource");
 		ds.print();
 
-
 		try {
 			env.execute();
 		} catch (Exception e) {

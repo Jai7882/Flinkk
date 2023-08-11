@@ -39,30 +39,30 @@ public class Test {
 	// 4 水位线传递原则是 上游传递给下游是采用广播的方式 不同的上游给下游传递水位线取时间戳最低的那条
 
 
-
 	public static void main(String[] args) {
 		StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 		env.setParallelism(1);
 
-		KafkaSource<String> kafkaSource = KafkaSource.<String>builder().setBootstrapServers("hadoop102:9092,hadoop103:9092,hadoop104:9092")
+		KafkaSource<String> kafkaSource = KafkaSource.<String>builder()
+				.setBootstrapServers("hadoop102:9092,hadoop103:9092,hadoop104:9092")
 				.setGroupId("flink")
 				.setValueOnlyDeserializer(new SimpleStringSchema())
 				.setTopics("topic_b")
 				.build();
 		SingleOutputStreamOperator<Tuple2<String, Long>> ds = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "kafkaSource")
 				.flatMap(
-				((String s, Collector<Tuple2<String, Long>> out) -> {
-					String[] words = s.split(",");
-					out.collect(Tuple2.of(words[2].trim(), 1L));
-				})
-		).returns(Types.TUPLE(Types.STRING, Types.LONG));
+						((String s, Collector<Tuple2<String, Long>> out) -> {
+							String[] words = s.split(",");
+							out.collect(Tuple2.of(words[2].trim(), 1L));
+						})
+				).returns(Types.TUPLE(Types.STRING, Types.LONG));
 		SingleOutputStreamOperator<Tuple2<String, Long>> sum = ds.keyBy(v -> v.f0).sum(1);
 		sum.print("sum");
-		KafkaSink<Tuple2<String,Long>> kafkaSink = KafkaSink.<Tuple2<String,Long>>builder().setBootstrapServers("hadoop102:9092,hadoop103:9092,hadoop104:9092")
-				.setRecordSerializer(new KafkaRecordSerializationSchema<Tuple2<String,Long>>() {
+		KafkaSink<Tuple2<String, Long>> kafkaSink = KafkaSink.<Tuple2<String, Long>>builder().setBootstrapServers("hadoop102:9092,hadoop103:9092,hadoop104:9092")
+				.setRecordSerializer(new KafkaRecordSerializationSchema<Tuple2<String, Long>>() {
 					@Nullable
 					@Override
-					public ProducerRecord<byte[], byte[]> serialize(Tuple2<String,Long> v, KafkaSinkContext kafkaSinkContext, Long aLong) {
+					public ProducerRecord<byte[], byte[]> serialize(Tuple2<String, Long> v, KafkaSinkContext kafkaSinkContext, Long aLong) {
 						return new ProducerRecord<>("topicC", v.f0.getBytes(), v.f1.toString().getBytes());
 					}
 				})

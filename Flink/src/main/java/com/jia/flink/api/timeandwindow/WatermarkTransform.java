@@ -1,11 +1,9 @@
 package com.jia.flink.api.timeandwindow;
 
 import com.alibaba.fastjson.JSON;
-import com.jia.flink.api.function.ClickSource;
 import com.jia.flink.pojo.Event;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.configuration.Configuration;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
