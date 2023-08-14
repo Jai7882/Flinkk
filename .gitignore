@@ -12,7 +12,7 @@ target/
 *.iml
 *.ipr
 .gitignore
-
+/.idea/
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -37,4 +37,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/.idea/
+
